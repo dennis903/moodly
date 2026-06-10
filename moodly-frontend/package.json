@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.101.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "classnames": "^2.5.1",
     "next": "16.2.7",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -20,6 +23,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "prettier": "^3.8.4",
     "typescript": "^5"
   }
 }
