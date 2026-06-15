@@ -1,7 +1,41 @@
 import './globals.css';
 import RootProvider from '@/providers/Root.provider';
 import type {Metadata} from 'next';
+import localFont from 'next/font/local';
 import {type FC} from 'react';
+
+const pretendard = localFont({
+  src: [
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-Thin.woff2', weight: '100', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-ExtraLight.woff2', weight: '200', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-Light.woff2', weight: '300', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-Regular.woff2', weight: '400', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-Medium.woff2', weight: '500', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-SemiBold.woff2', weight: '600', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-Bold.woff2', weight: '700', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-ExtraBold.woff2', weight: '800', style: 'normal'},
+    {path: '../../public/fonts/Pretendard/woff2/Pretendard-Black.woff2', weight: '900', style: 'normal'}
+  ],
+  display: 'swap',
+  variable: '--font-pretendard'
+});
+
+const gowunBatang = localFont({
+  src: [
+    {
+      path: '../../public/fonts/GowunBatang/GowunBatang-Regular.ttf',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../../public/fonts/GowunBatang/GowunBatang-Bold.ttf',
+      weight: '700',
+      style: 'normal'
+    }
+  ],
+  display: 'swap',
+  variable: '--font-gowun-batang'
+});
 
 export const metadata: Metadata = {
   title: 'moodly',
@@ -10,7 +44,7 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<{children: React.ReactNode}> = ({children}) => {
   return (
-    <html lang="en">
+    <html lang="en" className={`${pretendard.variable} ${gowunBatang.variable}`}>
       <body>
         <RootProvider>{children}</RootProvider>
       </body>
