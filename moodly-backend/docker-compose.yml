@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: moodly-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moodly-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db    # 컨테이너 내부에서는 서비스 이름으로 접근
+      DB_PORT: 5432  # 컨테이너 내부 포트는 항상 5432
+    ports:
+      - '${PORT}:${PORT}'
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
