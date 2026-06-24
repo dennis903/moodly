@@ -21,7 +21,7 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
     <div>
       <form onSubmit={props.onSubmitSignup}>
         <fieldset>
-          <legend>닉네임</legend>
+          <legend>닉네임ggg</legend>
           <input type="text" placeholder="닉네임" onChange={props.onChangeName} />
         </fieldset>
         <fieldset>
