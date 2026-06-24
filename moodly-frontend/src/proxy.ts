@@ -1,23 +1,16 @@
+import {auth} from './auth';
 import {NextResponse} from 'next/server';
-import type {NextRequest} from 'next/server';
+import {type NextRequest} from 'next/server';
 
-// This function can be marked `async` if using `await` inside
-export function proxy(request: NextRequest) {
-  const headers = new Headers(request.headers);
-
-  console.log(request.nextUrl.pathname);
-
-  headers.set('x-pathname', request.nextUrl.pathname);
+export default auth((req: NextRequest) => {
+  // req.auth로 세션 정보 접근 가능
+  const headers = new Headers(req.headers);
+  headers.set('x-pathname', req.nextUrl.pathname);
 
   return NextResponse.next({
-    request: {
-      headers
-    }
+    request: {headers}
   });
-}
-
-// Alternatively, you can use a default export:
-// export default function proxy(request: NextRequest) { ... }
+});
 
 export const config = {
   matcher: '/auth/:path*'

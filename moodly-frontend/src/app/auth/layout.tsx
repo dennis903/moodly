@@ -1,3 +1,5 @@
+import SigninContainer from '@/containers/Signin/Signin.container';
+import SignupContainer from '@/containers/Signup/Signup.container';
 import {headers} from 'next/headers';
 import {type FC} from 'react';
 
@@ -11,8 +13,8 @@ const AuthLayout: FC<{children: React.ReactNode}> = async ({children}) => {
   return (
     <div>
       {children}
-      {isSignIn && <p>로그인 페이지</p>}
-      {isSignUp && <p>회원가입 페이지</p>}
+      {isSignIn && <SigninContainer />}
+      {isSignUp && <SignupContainer />}
     </div>
   );
 };
