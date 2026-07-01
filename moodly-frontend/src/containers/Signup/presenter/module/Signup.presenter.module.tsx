@@ -1,5 +1,6 @@
 'use client';
 
+import {InputField} from '@/components';
 import {type FC} from 'react';
 
 interface ISignupPresenterModuleProps {
@@ -20,30 +21,23 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
   return (
     <div>
       <form onSubmit={props.onSubmitSignup}>
-        <fieldset>
-          <legend>닉네임</legend>
-          <input type="text" placeholder="닉네임" onChange={props.onChangeName} />
-        </fieldset>
-        <fieldset>
-          <legend>이메일</legend>
-          <input type="email" placeholder="이메일" onChange={props.onChangeEmail} />
-        </fieldset>
-        <fieldset>
-          <legend>비밀번호</legend>
-          <input type="password" placeholder="비밀번호" value={props.password} onChange={props.onChangePassword} />
-          {props.passwordMsg.length > 0 && (
-            <ul style={{color: 'red'}}>
-              {props.passwordMsg.map((msg, index) => (
-                <li key={index}>{msg}</li>
-              ))}
-            </ul>
-          )}
-        </fieldset>
-        <fieldset>
-          <legend>비밀번호 확인</legend>
-          <input type="password" placeholder="비밀번호 확인" onChange={props.onChangePasswordConfirm} />
-          {props.passwordConfirmMsg && <p style={{color: props.passwordConfirmMsg.isError ? 'red' : 'green'}}>{props.passwordConfirmMsg.message}</p>}
-        </fieldset>
+        <InputField
+          legend="닉네임"
+          type="text"
+          placeholder="닉네임"
+          messages={[
+            {
+              isError: true,
+              message: '실패'
+            }
+          ]}
+          isError={true}
+          isFocused={false}
+          onChange={props.onChangeName}
+        />
+        <InputField legend="이메일" type="email" placeholder="이메일" messages={[]} isError={false} isFocused={false} onChange={props.onChangeEmail} />
+        <InputField legend="비밀번호" type="password" placeholder="비밀번호" messages={[]} isError={false} isFocused={false} onChange={props.onChangePassword} />
+        <InputField legend="비밀번호 확인" type="password" placeholder="비밀번호 확인" messages={[]} isError={false} isFocused={false} onChange={props.onChangePasswordConfirm} />
         <button type="submit">가입하기</button>
       </form>
     </div>

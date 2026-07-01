@@ -57,8 +57,8 @@ export const useSignup = (): IUseSignupReturn => {
     setPassword(e.target.value);
 
     e.target.value.length < 8 && errorMsgs.push('비밀번호는 8자 이상이어야 합니다.');
-    /^(?=.*[A-Z]).+$/.test(e.target.value) ? errorMsgs.push('') : errorMsgs.push('비밀번호에는 대문자가 포함되어야 합니다.');
-    /^(?=.*[!@#$%^&*]).+$/.test(e.target.value) ? errorMsgs.push('') : errorMsgs.push('비밀번호에는 특수문자가 포함되어야 합니다.');
+    !/^(?=.*[A-Z]).+$/.test(e.target.value) && errorMsgs.push('비밀번호에는 대문자가 포함되어야 합니다.');
+    !/^(?=.*[!@#$%^&*]).+$/.test(e.target.value) && errorMsgs.push('비밀번호에는 특수문자가 포함되어야 합니다.');
 
     setPasswordMsg(errorMsgs);
   };
