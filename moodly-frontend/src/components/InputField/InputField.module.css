@@ -1,0 +1,49 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.input-field__legend {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: #6b645a;
+}
+
+.input-field__input {
+  background-color: #f5f3ef;
+  font-size: 1.5rem;
+  padding: 1.4rem 1.6rem;
+  border-radius: 1.2rem;
+  border: none;
+}
+
+.input-field__input--error {
+  background-color: #fff8f8;
+  border-bottom: 2px solid #f4a4a4;
+}
+
+.input-field__input--success {
+  background-color: #f5fff5;
+  border-bottom: 2px solid #a8d8a8;
+}
+
+.input-field__messages {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.input-field__message {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.input-field__message--error {
+  color: #f4a4a4;
+}
+
+.input-field__message--success {
+  color: #a8d8a8;
+}
