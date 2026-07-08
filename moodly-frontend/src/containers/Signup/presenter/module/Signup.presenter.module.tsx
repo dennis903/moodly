@@ -21,23 +21,18 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
   return (
     <div>
       <form onSubmit={props.onSubmitSignup}>
-        <InputField
-          legend="닉네임"
-          type="text"
-          placeholder="닉네임"
-          messages={[
-            {
-              isError: true,
-              message: '실패'
-            }
-          ]}
-          isError={true}
-          isFocused={false}
-          onChange={props.onChangeName}
-        />
+        <InputField legend="닉네임" type="text" placeholder="닉네임" messages={[]} isError={true} isFocused={false} onChange={props.onChangeName} />
         <InputField legend="이메일" type="email" placeholder="이메일" messages={[]} isError={false} isFocused={false} onChange={props.onChangeEmail} />
-        <InputField legend="비밀번호" type="password" placeholder="비밀번호" messages={[]} isError={false} isFocused={false} onChange={props.onChangePassword} />
-        <InputField legend="비밀번호 확인" type="password" placeholder="비밀번호 확인" messages={[]} isError={false} isFocused={false} onChange={props.onChangePasswordConfirm} />
+        <InputField
+          legend="비밀번호"
+          type="password"
+          placeholder="비밀번호"
+          messages={props.passwordMsg.map((msg) => ({message: msg, isError: true}))}
+          isError={props.passwordMsg.length > 0}
+          isFocused={false}
+          onChange={props.onChangePassword}
+        />
+        <InputField legend="비밀번호 확인" type="password" placeholder="비밀번호 확인" messages={[props.passwordConfirmMsg]} isError={props.passwordConfirmMsg.isError} isFocused={false} onChange={props.onChangePasswordConfirm} />
         <button type="submit">가입하기</button>
       </form>
     </div>
