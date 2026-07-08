@@ -1,5 +1,3 @@
-import SigninContainer from '@/containers/Signin/Signin.container';
-import SignupContainer from '@/containers/Signup/Signup.container';
 import {headers} from 'next/headers';
 import {type FC} from 'react';
 
@@ -10,13 +8,7 @@ const AuthLayout: FC<{children: React.ReactNode}> = async ({children}) => {
   const isSignIn = pathName.includes('/signin');
   const isSignUp = pathName.includes('/signup');
 
-  return (
-    <div>
-      {children}
-      {isSignIn && <SigninContainer />}
-      {isSignUp && <SignupContainer />}
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
 export default AuthLayout;

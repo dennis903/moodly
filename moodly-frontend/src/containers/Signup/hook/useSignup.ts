@@ -61,10 +61,29 @@ export const useSignup = (): IUseSignupReturn => {
     !/^(?=.*[!@#$%^&*]).+$/.test(e.target.value) && errorMsgs.push('비밀번호에는 특수문자가 포함되어야 합니다.');
 
     setPasswordMsg(errorMsgs);
+
+    if (passwordConfirm) {
+      setPasswordConfirmMsg({
+        message: e.target.value === passwordConfirm ? '비밀번호가 같습니다.' : '비밀번호가 다릅니다.',
+        isError: e.target.value !== passwordConfirm
+      });
+    }
   };
 
   const onChangePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordConfirm(e.target.value);
+
+    if (password === e.target.value) {
+      setPasswordConfirmMsg({
+        message: '비밀번호가 같습니다.',
+        isError: false
+      });
+    } else {
+      setPasswordConfirmMsg({
+        message: '비밀번호가 다릅니다.',
+        isError: true
+      });
+    }
   };
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
