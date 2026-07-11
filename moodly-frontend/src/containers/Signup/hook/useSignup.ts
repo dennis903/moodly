@@ -9,95 +9,238 @@ interface IUseSignupReturn {
   onChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePasswordConfirm: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  passwordConfirmMsg: {
-    message: string;
-    isError: boolean;
-  };
-  passwordMsg: string[];
-  password: string;
+  onFocusInputField: (field: keyof TFormValidation) => void;
+  onBlurInputField: (field: keyof TFormValidation) => void;
+  formValidation: TFormValidation;
 }
 
+export type TFormValidation = {
+  email: {
+    value: string;
+    isFocused: boolean;
+    isError: boolean;
+    message: {
+      isError: boolean;
+      message: string;
+    };
+  };
+  nickname: {
+    value: string;
+    isFocused: boolean;
+    isError: boolean;
+    message: {
+      isError: boolean;
+      message: string;
+    };
+  };
+  password: {
+    value: string;
+    isFocused: boolean;
+    isError: boolean;
+    messages: {
+      message: string;
+      isError: boolean;
+    }[];
+  };
+  passwordConfirm: {
+    value: string;
+    isFocused: boolean;
+    isError: boolean;
+    message: {
+      isError: boolean;
+      message: string;
+    };
+  };
+};
+
 export const useSignup = (): IUseSignupReturn => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [name, setName] = useState('');
-  const [passwordConfirmMsg, setPasswordConfirmMsg] = useState({
-    message: '',
-    isError: false
+  const [formValidation, setFormValidation] = useState<TFormValidation>({
+    email: {
+      value: '',
+      isFocused: false,
+      isError: false,
+      message: {
+        isError: false,
+        message: ''
+      }
+    },
+    nickname: {
+      value: '',
+      isFocused: false,
+      isError: false,
+      message: {
+        isError: false,
+        message: ''
+      }
+    },
+    password: {
+      value: '',
+      isFocused: false,
+      isError: false,
+      messages: []
+    },
+    passwordConfirm: {
+      value: '',
+      isFocused: false,
+      isError: false,
+      message: {
+        isError: false,
+        message: ''
+      }
+    }
   });
-  const [passwordMsg, setPasswordMsg] = useState<string[]>([]);
 
   const action$ = {
-    postSignup: usePostSignup()
+    postSignup: usePostSignup({setFormValidation})
   };
 
   const onSubmitSignup = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (password !== passwordConfirm) {
-      setPasswordConfirmMsg({message: '비밀번호가 다릅니다.', isError: true});
+    if (formValidation.password.value !== formValidation.passwordConfirm.value) {
+      setFormValidation((prev) => ({
+        ...prev,
+        passwordConfirm: {
+          ...prev.passwordConfirm,
+          isError: true,
+          message: {
+            isError: true,
+            message: '비밀번호가 다릅니다.'
+          }
+        }
+      }));
       return;
     }
-
-    setPasswordConfirmMsg({message: '비밀번호가 같습니다.', isError: false});
-    action$.postSignup.mutate({email, password, name});
+    action$.postSignup.mutate({email: formValidation.email.value, password: formValidation.password.value, name: formValidation.nickname.value});
   };
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+    setFormValidation((prev) => ({
+      ...prev,
+      email: {
+        ...prev.email,
+        value: e.target.value
+      }
+    }));
   };
 
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const errorMsgs = [];
+    const errorMsgs: string[] = [];
     if (/\s/.test(e.target.value)) {
-      console.log('비밀번호에 공백이 포함되어 있습니다.');
       return;
     }
-    setPassword(e.target.value);
+    setFormValidation((prev) => ({
+      ...prev,
+      password: {
+        ...prev.password,
+        value: e.target.value
+      }
+    }));
 
     e.target.value.length < 8 && errorMsgs.push('비밀번호는 8자 이상이어야 합니다.');
     !/^(?=.*[A-Z]).+$/.test(e.target.value) && errorMsgs.push('비밀번호에는 대문자가 포함되어야 합니다.');
     !/^(?=.*[!@#$%^&*]).+$/.test(e.target.value) && errorMsgs.push('비밀번호에는 특수문자가 포함되어야 합니다.');
 
-    setPasswordMsg(errorMsgs);
+    setFormValidation((prev) => ({
+      ...prev,
+      password: {
+        ...prev.password,
+        messages: errorMsgs.map((msg) => ({
+          message: msg,
+          isError: true
+        }))
+      }
+    }));
 
-    if (passwordConfirm) {
-      setPasswordConfirmMsg({
-        message: e.target.value === passwordConfirm ? '비밀번호가 같습니다.' : '비밀번호가 다릅니다.',
-        isError: e.target.value !== passwordConfirm
-      });
+    if (formValidation.passwordConfirm.value) {
+      setFormValidation((prev) => ({
+        ...prev,
+        passwordConfirm: {
+          ...prev.passwordConfirm,
+          isError: e.target.value !== formValidation.passwordConfirm.value,
+          message: {
+            message: e.target.value === formValidation.passwordConfirm.value ? '비밀번호가 같습니다.' : '비밀번호가 다릅니다.',
+            isError: e.target.value !== formValidation.passwordConfirm.value
+          }
+        }
+      }));
     }
   };
 
   const onChangePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordConfirm(e.target.value);
+    setFormValidation((prev) => ({
+      ...prev,
+      passwordConfirm: {
+        ...prev.passwordConfirm,
+        value: e.target.value
+      }
+    }));
 
-    if (password === e.target.value) {
-      setPasswordConfirmMsg({
-        message: '비밀번호가 같습니다.',
-        isError: false
-      });
+    if (formValidation.password.value === e.target.value) {
+      setFormValidation((prev) => ({
+        ...prev,
+        passwordConfirm: {
+          ...prev.passwordConfirm,
+          isError: false,
+          message: {
+            message: '비밀번호가 같습니다.',
+            isError: false
+          }
+        }
+      }));
     } else {
-      setPasswordConfirmMsg({
-        message: '비밀번호가 다릅니다.',
-        isError: true
-      });
+      setFormValidation((prev) => ({
+        ...prev,
+        passwordConfirm: {
+          ...prev.passwordConfirm,
+          isError: true,
+          message: {
+            message: '비밀번호가 다릅니다.',
+            isError: true
+          }
+        }
+      }));
     }
   };
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+    setFormValidation((prev) => ({
+      ...prev,
+      nickname: {
+        ...prev.nickname,
+        value: e.target.value
+      }
+    }));
+  };
+
+  const onFocusInputField = (field: keyof TFormValidation) => {
+    setFormValidation((prev) => ({
+      ...prev,
+      [field]: {
+        ...prev[field],
+        isFocused: true
+      }
+    }));
+  };
+
+  const onBlurInputField = (field: keyof TFormValidation) => {
+    setFormValidation((prev) => ({
+      ...prev,
+      [field]: {
+        ...prev[field],
+        isFocused: false
+      }
+    }));
   };
 
   return {
-    password,
+    formValidation,
     onSubmitSignup,
     onChangeEmail,
     onChangePassword,
     onChangePasswordConfirm,
     onChangeName,
-    passwordConfirmMsg,
-    passwordMsg
+    onFocusInputField,
+    onBlurInputField
   };
 };

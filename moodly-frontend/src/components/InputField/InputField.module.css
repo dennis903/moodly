@@ -9,6 +9,11 @@
   font-size: 1.3rem;
   margin-bottom: 0.8rem;
   color: #6b645a;
+  transition: all 0.1s ease;
+}
+
+.input-field__legend--focused {
+  color: #b8a0d8;
 }
 
 .input-field__input {
@@ -17,6 +22,18 @@
   padding: 1.4rem 1.6rem;
   border-radius: 1.2rem;
   border: none;
+  border-bottom: transparent 2px solid;
+  transition: border 0.3s ease;
+}
+
+.input-field__input:focus-visible {
+  outline: none;
+}
+
+.input-field__input--focused {
+  background-color: #fff8f8;
+  border-bottom: 2px solid #b8a0d8;
+  outline: none;
 }
 
 .input-field__input--error {

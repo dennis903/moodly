@@ -5,7 +5,7 @@ import SignupPresenterModule from './presenter/module/Signup.presenter.module';
 import {type FC} from 'react';
 
 const SignupContainer: FC = () => {
-  const {onSubmitSignup, onChangeEmail, onChangePassword, onChangePasswordConfirm, onChangeName, passwordConfirmMsg, passwordMsg, password} = useSignup();
+  const {onSubmitSignup, onChangeEmail, onChangePassword, onChangePasswordConfirm, onChangeName, onFocusInputField, onBlurInputField, formValidation} = useSignup();
 
   const vProps = {
     onSubmitSignup,
@@ -13,9 +13,9 @@ const SignupContainer: FC = () => {
     onChangePassword,
     onChangePasswordConfirm,
     onChangeName,
-    passwordConfirmMsg,
-    passwordMsg,
-    password
+    onFocusInputField,
+    onBlurInputField,
+    formValidation
   };
 
   return (

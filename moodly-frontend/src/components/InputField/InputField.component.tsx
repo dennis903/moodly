@@ -18,12 +18,19 @@ interface InputFieldComponentProps {
   isFocused: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const InputFieldComponent: FC<InputFieldComponentProps> = (props) => {
   return (
     <fieldset className={cx('input-field')}>
-      <legend className={cx('input-field__legend')}>{props.legend}</legend>
+      <legend
+        className={cx('input-field__legend', {
+          'input-field__legend--focused': props.isFocused
+        })}
+      >
+        {props.legend}
+      </legend>
       <input
         type={props.type}
         placeholder={props.placeholder}
@@ -34,6 +41,7 @@ const InputFieldComponent: FC<InputFieldComponentProps> = (props) => {
         })}
         onChange={props.onChange}
         onFocus={props.onFocus}
+        onBlur={props.onBlur}
       />
       <ul className={cx('input-field__messages')}>
         {props.messages.map((msg, index) => (
