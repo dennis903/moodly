@@ -3,6 +3,7 @@ import RootProvider from '@/providers/Root.provider';
 import type {Metadata} from 'next';
 import localFont from 'next/font/local';
 import {type FC} from 'react';
+import {Toaster} from 'sonner';
 
 const pretendard = localFont({
   src: [
@@ -46,7 +47,10 @@ const RootLayout: FC<{children: React.ReactNode}> = ({children}) => {
   return (
     <html lang="en" className={`${pretendard.variable} ${gowunBatang.variable}`}>
       <body>
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          {children}
+          <Toaster />
+        </RootProvider>
       </body>
     </html>
   );

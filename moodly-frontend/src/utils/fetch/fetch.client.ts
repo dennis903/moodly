@@ -1,27 +1,16 @@
-import { FetchError } from "./fetch.error";
+import {type IFetchInit, buildRequestInit, handleResponse} from './fetch.shared';
+import {getSession} from 'next-auth/react';
 
-export const fetchClient = async <T>(
-  input: RequestInfo,
-  init?: RequestInit,
-): Promise<T> => {
-  const res = await fetch(input, {
-    credentials: "include",
-    headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
-    ...init,
-  });
+const isBrowser = () => typeof window !== 'undefined';
 
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
-
-    throw new FetchError(
-      res.status,
-      body?.code,
-      body?.message ?? res.statusText,
-      body,
-    );
+export const fetchClient = async <T>(input: RequestInfo, init?: IFetchInit): Promise<T> => {
+  if (!init?.skipAuth && !isBrowser()) {
+    throw new Error('fetchClient 는 브라우저 전용입니다. 서버에서는 fetchServer 를 사용하거나 skipAuth 옵션을 주세요.');
   }
 
-  if (res.status === 204) return undefined as T;
+  const session = init?.skipAuth ? null : await getSession();
 
-  return res.json() as Promise<T>;
+  const res = await fetch(input, buildRequestInit(init, session?.accessToken));
+
+  return handleResponse<T>(res);
 };

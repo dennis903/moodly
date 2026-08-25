@@ -11,14 +11,16 @@ export interface IAuthRepository {
 const postSignup = async ({email, password, name}: {email: string; password: string; name: string}): Promise<TPostSignupResponse> => {
   return await fetchClient(`${getBaseUrl()}/${API.AUTH}/signup`, {
     method: 'POST',
-    body: JSON.stringify({email, password, name})
+    body: JSON.stringify({email, password, name}),
+    skipAuth: true
   });
 };
 
 const postLogin = async ({email, password}: {email: string; password: string}): Promise<TPostLoginResponse> => {
   return await fetchClient(`${getBaseUrl()}/${API.AUTH}/login`, {
     method: 'POST',
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({email, password}),
+    skipAuth: true
   });
 };
 

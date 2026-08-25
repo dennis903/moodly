@@ -3,6 +3,7 @@ import repository from '@/repository';
 import {FetchError} from '@/utils/fetch/fetch.error';
 import {AUTH_QUERY_KEYS} from '@/utils/queryKeyStore';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useRouter} from 'next/navigation';
 import {toast} from 'sonner';
 
 interface IUsePostSignupProps {
@@ -10,6 +11,7 @@ interface IUsePostSignupProps {
 }
 
 export const usePostSignup = ({setFormValidation}: IUsePostSignupProps) => {
+  const router = useRouter();
   // const queryClient = useQueryClient();
 
   return useMutation({
@@ -17,6 +19,7 @@ export const usePostSignup = ({setFormValidation}: IUsePostSignupProps) => {
     mutationFn: ({email, password, name}: {email: string; password: string; name: string}) => repository.auth.postSignup({email, password, name}),
     onSuccess: () => {
       toast.success('회원가입 성공');
+      router.push('/auth/signin');
     },
     onError: (error) => {
       if (error instanceof FetchError) {

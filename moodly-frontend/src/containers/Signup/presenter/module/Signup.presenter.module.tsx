@@ -2,6 +2,7 @@
 
 import {type TFormValidation} from '../../hook/useSignup';
 import {InputField} from '@/components';
+import {PrimaryButton} from '@/components';
 import {type FC} from 'react';
 
 interface ISignupPresenterModuleProps {
@@ -23,6 +24,7 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
           legend="닉네임"
           type="text"
           placeholder="닉네임"
+          value={props.formValidation.nickname.value}
           messages={[props.formValidation.nickname.message]}
           isError={props.formValidation.nickname.message.isError}
           isFocused={props.formValidation.nickname.isFocused}
@@ -34,6 +36,7 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
           legend="이메일"
           type="email"
           placeholder="이메일"
+          value={props.formValidation.email.value}
           messages={[props.formValidation.email.message]}
           isError={props.formValidation.email.message.isError}
           isFocused={props.formValidation.email.isFocused}
@@ -45,6 +48,7 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
           legend="비밀번호"
           type="password"
           placeholder="비밀번호"
+          value={props.formValidation.password.value}
           messages={props.formValidation.password.messages}
           isError={props.formValidation.password.messages.length > 0}
           isFocused={props.formValidation.password.isFocused}
@@ -56,6 +60,7 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
           legend="비밀번호 확인"
           type="password"
           placeholder="비밀번호 확인"
+          value={props.formValidation.passwordConfirm.value}
           messages={[props.formValidation.passwordConfirm.message]}
           isError={props.formValidation.passwordConfirm.message.isError}
           isFocused={props.formValidation.passwordConfirm.isFocused}
@@ -63,7 +68,7 @@ const SignupPresenterModule: FC<ISignupPresenterModuleProps> = (props) => {
           onFocus={() => props.onFocusInputField('passwordConfirm')}
           onBlur={() => props.onBlurInputField('passwordConfirm')}
         />
-        <button type="submit">가입하기</button>
+        <PrimaryButton type="submit" text="가입하기" />
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 import repository from '@/repository';
+import {FetchError} from '@/utils';
 import {NextResponse} from 'next/server';
 
 export async function POST(request: Request) {
@@ -8,7 +9,9 @@ export async function POST(request: Request) {
     const response = await repository.auth.postSignup({email, password, name});
     return NextResponse.json(response, {status: 200});
   } catch (error) {
-    console.error('회원가입 실패', error);
+    if (error instanceof FetchError) {
+      return NextResponse.json({message: error?.message, code: error?.code}, {status: error.status});
+    }
     return NextResponse.json({error: '회원가입 실패'}, {status: 500});
   }
 }
