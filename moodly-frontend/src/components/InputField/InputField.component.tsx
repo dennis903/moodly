@@ -8,35 +8,45 @@ const cx = classNames.bind(styles);
 
 interface InputFieldComponentProps {
   legend: string;
-  messages: {
+  messages?: {
     message: string;
     isError: boolean;
   }[];
   type: 'text' | 'email' | 'password';
   placeholder: string;
-  isError: boolean;
-  isFocused: boolean;
+  value: string;
+  isError?: boolean;
+  isFocused?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const InputFieldComponent: FC<InputFieldComponentProps> = (props) => {
   return (
     <fieldset className={cx('input-field')}>
-      <legend className={cx('input-field__legend')}>{props.legend}</legend>
+      <legend
+        className={cx('input-field__legend', {
+          'input-field__legend--focused': props.isFocused
+        })}
+      >
+        {props.legend}
+      </legend>
       <input
         type={props.type}
         placeholder={props.placeholder}
+        value={props.value}
         className={cx('input-field__input', {
           'input-field__input--focused': props.isFocused,
           'input-field__input--error': props.isError,
-          'input-field__input--success': !props.isError && props.messages.some((msg) => !msg.isError && msg.message !== '')
+          'input-field__input--success': !props.isError && props.messages?.some((msg) => !msg.isError && msg.message !== '')
         })}
         onChange={props.onChange}
         onFocus={props.onFocus}
+        onBlur={props.onBlur}
       />
       <ul className={cx('input-field__messages')}>
-        {props.messages.map((msg, index) => (
+        {props.messages?.map((msg, index) => (
           <li
             key={index}
             className={cx('input-field__message', {
