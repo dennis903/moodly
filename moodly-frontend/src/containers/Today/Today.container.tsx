@@ -2,6 +2,7 @@
 
 import {useToday} from './hook/useToday';
 import TodayPresenterModule from './presenter/module/Today.presenter.module';
+import EmotionRegisterModalContainer from '@/containers/EmotionRegisterModal/EmotionRegisterModal.container';
 import {type FC} from 'react';
 
 const TodayContainer: FC = () => {
@@ -14,6 +15,7 @@ const TodayContainer: FC = () => {
   return (
     <div>
       <TodayPresenterModule {...vProps} />
+      <EmotionRegisterModalContainer />
     </div>
   );
 };
