@@ -1,0 +1,105 @@
+.add-tag-modal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.line {
+  width: 3.6rem;
+  height: 0.4rem;
+  background-color: #dedbd5;
+  border-radius: 0.2rem;
+  margin: 2rem;
+}
+
+.add-tag-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2.4rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-family: 'Batang', sans-serif;
+}
+
+.add-tag-modal__close-button {
+  border: none;
+  background: none;
+  font-size: 2.4rem;
+  cursor: pointer;
+  color: #9a9287;
+}
+
+.add-tag-modal__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 2rem 2.4rem;
+  position: relative;
+}
+
+.add-tag-modal__input {
+  width: 100%;
+  height: 4.6rem;
+  background-color: #f5f3ef;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 1.6rem;
+  padding-left: 3.2rem;
+}
+
+.hashtag {
+  color: #bba0d8;
+  position: absolute;
+  top: 50%;
+  left: 4rem;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+}
+
+.add-tag-modal__add-button {
+  width: 6.4rem;
+  height: 4.6rem;
+  background-color: #d5d2cc;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.add-tag-modal__tag-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  padding: 0 2.4rem;
+  padding-bottom: 3.2rem;
+}
+
+.add-tag-modal__tag-list-title {
+  color: #9a9287;
+  font-size: 1.2rem;
+}
+
+.add-tag-modal__tag-list-content {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.add-tag-modal__tag {
+  border: #edebe6 1px solid;
+  border-radius: 2rem;
+  padding: 0.8rem 1.2rem;
+  background-color: #fff;
+}

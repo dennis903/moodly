@@ -1,0 +1,46 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.year {
+  font-size: 2rem;
+  margin: 2rem 0;
+}
+
+.timeline__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.timeline__item__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.timeline__item__date-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timeline__item__date {
+  font-size: 1.5rem;
+}
+
+.timeline__item__day {
+  font-size: 1.3rem;
+  color: #9a9287;
+}
+
+.timeline__item__description {
+  font-size: 1.4rem;
+  color: #6b645a;
+}

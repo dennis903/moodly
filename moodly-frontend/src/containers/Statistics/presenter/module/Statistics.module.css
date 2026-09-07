@@ -1,0 +1,79 @@
+.title {
+  font-size: 2.2rem;
+  margin: 2rem;
+}
+
+.statistics-header__itemlist {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: #f5f3ef;
+  width: 31.9rem;
+  height: 3.6rem;
+  border-radius: 2rem;
+  padding: 0 1.6rem;
+}
+
+.statistics-header__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statistics-header__item-label {
+  font-size: 1.3rem;
+  color: #9a9287;
+}
+
+.statistics-header__date {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statistics-header__button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #9a9287;
+}
+
+.date {
+  font-size: 1.3rem;
+  color: #9a9287;
+}
+
+.statistics-contents {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.statistics-contents__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #fff;
+  border: #9a9287 1px solid;
+  width: 15.3rem;
+  height: 8.8rem;
+  border-radius: 2rem;
+  padding: 0 1.6rem;
+}
+
+.statistics-contents__item-label {
+  font-size: 1.2rem;
+  color: #9a9287;
+}
+
+.statistics-contents__item-value {
+  font-size: 2.8rem;
+  color: #2b2620;
+}
+
+.statistics-contents__item-subvalue {
+  font-size: 1.1rem;
+  color: #9a9287;
+}

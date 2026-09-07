@@ -1,0 +1,36 @@
+.setting {
+  background-color: var(--background);
+}
+
+.title {
+  font-size: 2.2rem;
+  margin: 2rem;
+}
+
+.setting-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2.4rem;
+}
+
+.setting-header__img {
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 50%;
+  background-color: #d8ebe4;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setting-header__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.setting-header__info-name {
+  font-size: 1.7rem;
+}

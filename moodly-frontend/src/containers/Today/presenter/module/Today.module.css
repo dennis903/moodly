@@ -1,0 +1,32 @@
+.today {
+  background-color: var(--background);
+}
+
+.today__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 2.4rem;
+}
+
+.today__button {
+  border: none;
+  background: none;
+  color: #9a9287;
+}
+
+.title {
+  color: #2b2620;
+  font-size: 2.2rem;
+  font-family: 'Batang', sans-serif;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+.emotions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 40px;
+  width: 100%;
+}
