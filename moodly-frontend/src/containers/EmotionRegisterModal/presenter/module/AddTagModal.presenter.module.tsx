@@ -1,6 +1,6 @@
 'use client';
 
-import {useAddTagModalDispatch, useAddTagModalState} from '../../store/addTagModal.store';
+import {useAddTagModalAddDispatch, useAddTagModalRemoveDispatch, useAddTagModalState, useAddTagModalToggleDispatch} from '../../store/addTagModal.store';
 import styles from './AddTagModal.module.css';
 import {Modal} from '@/components';
 import classNames from 'classnames/bind';
@@ -20,7 +20,9 @@ const AddTagModalPresenterModule: FC<IAddTagModalPresenterModuleProps> = (props)
   };
 
   const dispatch$ = {
-    modal: useAddTagModalDispatch()
+    toggle: useAddTagModalToggleDispatch(),
+    add: useAddTagModalAddDispatch(),
+    remove: useAddTagModalRemoveDispatch()
   };
 
   return (
@@ -29,14 +31,14 @@ const AddTagModalPresenterModule: FC<IAddTagModalPresenterModuleProps> = (props)
         <div className={cx('line')}></div>
         <div className={cx('add-tag-modal__header')}>
           <h2 className={cx('title')}>태그 추가</h2>
-          <button type="button" className={cx('add-tag-modal__close-button')} onClick={() => dispatch$.modal.acToggleModal({isOpen: false})}>
+          <button type="button" className={cx('add-tag-modal__close-button')} onClick={() => dispatch$.toggle({isOpen: false})}>
             <X />
           </button>
         </div>
         <div className={cx('add-tag-modal__content')}>
           <input type="text" placeholder="태그를 입력하세요" value={props.tagInput} onChange={props.onChangeAddTagInput} className={cx('add-tag-modal__input')} />
           <p className={cx('hashtag')}>#</p>
-          <button type="button" className={cx('add-tag-modal__add-button')} onClick={() => dispatch$.modal.acAddTag({tag: props.tagInput})}>
+          <button type="button" className={cx('add-tag-modal__add-button')} onClick={() => dispatch$.add({tag: props.tagInput})}>
             추가
           </button>
         </div>
@@ -45,7 +47,7 @@ const AddTagModalPresenterModule: FC<IAddTagModalPresenterModuleProps> = (props)
             {state$.modal.tagList.map((tag, index) => (
               <li key={index} className={cx('add-tag-modal__selected-tag-item')}>
                 <p className={cx('add-tag-modal__selected-tag')}>#{tag}</p>
-                <button type="button" className={cx('add-tag-modal__selected-tag-delete-button')} onClick={() => dispatch$.modal.acRemoveTag({tag})}>
+                <button type="button" className={cx('add-tag-modal__selected-tag-delete-button')} onClick={() => dispatch$.remove({tag})}>
                   <X />
                 </button>
               </li>
