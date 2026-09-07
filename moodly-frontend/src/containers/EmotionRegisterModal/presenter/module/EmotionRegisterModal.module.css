@@ -1,0 +1,88 @@
+.emotion-register-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2.4rem;
+  margin: 2rem 0;
+}
+
+.emotion-register-modal__button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #9a9287;
+}
+
+.emotion-register-modal__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.emotion-register-modal__date {
+  font-size: 1.6rem;
+}
+
+.emotion-register-modal__day {
+  font-size: 1.4rem;
+  color: #9a9287;
+}
+
+.emotion-register-modal__textarea {
+  width: 100%;
+  height: 39.5rem;
+  border: none;
+  border-radius: 1rem;
+  padding: 1.2rem 1.6rem;
+  background-color: var(--background);
+  resize: none;
+}
+
+.emotion-register-modal__button-tag {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emotion-register-modal__tag {
+  border: none;
+  background-color: #e8dcc4;
+  border-radius: 2rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.emotion-register-modal__tag-button {
+  border: dashed 1px #9a9287;
+  background: none;
+  cursor: pointer;
+  color: #9a9287;
+  border-radius: 2rem;
+  padding: 0.4rem 1.2rem;
+}
+
+.emotion-register-modal__button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 2.4rem;
+}
+
+.emotion-register-modal__button-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.emotion-register-modal__submit-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}

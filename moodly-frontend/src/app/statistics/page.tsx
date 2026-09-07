@@ -8,3 +8,5 @@ const StatisticsPage: FC = () => {
     </div>
   );
 };
+
+export default StatisticsPage;

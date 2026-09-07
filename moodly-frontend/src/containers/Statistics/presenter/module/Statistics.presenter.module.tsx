@@ -1,5 +1,6 @@
 import styles from './Statistics.module.css';
 import classNames from 'classnames/bind';
+import {ChevronLeft, ChevronRight} from 'lucide-react';
 import {type FC} from 'react';
 
 const cx = classNames.bind(styles);
@@ -7,7 +8,7 @@ const cx = classNames.bind(styles);
 const StatisticsPresenterModule: FC = () => {
   return (
     <div className={cx('statistics')}>
-      <h2 className={cx('statistics-title')}>통계</h2>
+      <h2 className={cx('title')}>통계</h2>
       <div className={cx('statistics-header')}>
         <div className={cx('statistics-header__itemlist')}>
           <div className={cx('statistics-header__item')}>
@@ -20,7 +21,15 @@ const StatisticsPresenterModule: FC = () => {
             <p className={cx('statistics-header__item-label')}>연간</p>
           </div>
         </div>
-        <p className={cx('date')}>2026년 4월</p>
+        <div className={cx('statistics-header__date')}>
+          <button type="button" className={cx('statistics-header__button')}>
+            <ChevronLeft />
+          </button>
+          <p className={cx('date')}>2026년 4월</p>
+          <button type="button" className={cx('statistics-header__button')}>
+            <ChevronRight />
+          </button>
+        </div>
       </div>
       <div className={cx('statistics-contents')}>
         <div className={cx('statistics-contents__item')}>
