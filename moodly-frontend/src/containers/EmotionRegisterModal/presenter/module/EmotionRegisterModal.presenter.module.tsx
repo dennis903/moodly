@@ -1,6 +1,6 @@
 'use client';
 
-import {useAddTagModalDispatch} from '../../store/addTagModal.store';
+import {useAddTagModalToggleDispatch} from '../../store/addTagModal.store';
 import {useEmotionRegisterModalDispatch, useEmotionRegisterModalState} from '../../store/emotionRegisterModal.store';
 import styles from './EmotionRegisterModal.module.css';
 import {Modal} from '@/components';
@@ -25,7 +25,7 @@ const EmotionRegisterModalPresenterModule: FC<IEmotionRegisterModalPresenterModu
 
   const dispatch$ = {
     modal: useEmotionRegisterModalDispatch(),
-    addTagModal: useAddTagModalDispatch()
+    addTagModal: useAddTagModalToggleDispatch()
   };
 
   return (
@@ -55,7 +55,7 @@ const EmotionRegisterModalPresenterModule: FC<IEmotionRegisterModalPresenterModu
             <button type="button" className={cx('emotion-register-modal__tag')}>
               #감정태그
             </button>
-            <button type="button" className={cx('emotion-register-modal__tag-button')} onClick={() => dispatch$.addTagModal.acToggleModal({isOpen: true})}>
+            <button type="button" className={cx('emotion-register-modal__tag-button')} onClick={() => dispatch$.addTagModal({isOpen: true})}>
               + 태그
             </button>
           </div>

@@ -20,9 +20,8 @@ export const useAddTagModalStore = () => createStore.getState();
 
 export const useAddTagModalState = () => createStore((state) => state.addTagModal$);
 
-export const useAddTagModalDispatch = () =>
-  createStore((state) => ({
-    acToggleModal: state.acToggleModal,
-    acAddTag: state.acAddTag,
-    acRemoveTag: state.acRemoveTag
-  }));
+export const useAddTagModalToggleDispatch = () => createStore((state) => state.acToggleModal);
+
+export const useAddTagModalAddDispatch = () => createStore((state) => state.acAddTag);
+
+export const useAddTagModalRemoveDispatch = () => createStore((state) => state.acRemoveTag);
