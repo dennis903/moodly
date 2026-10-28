@@ -1,7 +1,7 @@
 'use client';
 
-import EmotionPresenterMicro from '../micro/Emotion.presenter.micro';
 import styles from './Today.module.css';
+import {EmotionButton} from '@/components';
 import {EMOTION_VALUES} from '@/constants/emotion.constant';
 import classNames from 'classnames/bind';
 import {House, Settings} from 'lucide-react';
@@ -28,13 +28,7 @@ const TodayPresenterModule: FC<ITodayPresenterModuleProps> = (props) => {
       <h1 className={cx('title')}>오늘의 감정을 골라보세요</h1>
       <div className={cx('emotions')}>
         {EMOTION_VALUES.map((emotion) => (
-          <EmotionPresenterMicro
-            key={emotion.value}
-            label={emotion.label}
-            imageSrc={`/images/${emotion.value.toLowerCase()}.png`}
-            onClick={() => props.onClickEmotionSelect(emotion.value)}
-            isSelected={props.selectedEmotion === emotion.value}
-          />
+          <EmotionButton key={emotion.value} label={emotion.label} imageSrc={`/images/${emotion.value.toLowerCase()}.png`} onClick={() => props.onClickEmotionSelect(emotion.value)} isSelected={props.selectedEmotion === emotion.value} />
         ))}
       </div>
     </div>

@@ -1,0 +1,100 @@
+.detail-edit-modal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.line {
+  width: 3.6rem;
+  height: 0.4rem;
+  background-color: #dedbd5;
+  border-radius: 0.2rem;
+  margin: 2rem;
+}
+
+.detail-edit-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2.4rem;
+}
+
+.detail-edit-modal__header-title {
+  font-size: 1.8rem;
+  font-family: 'Batang', sans-serif;
+}
+.detail-edit-modal__header-close-button {
+  border: none;
+  background: none;
+  font-size: 2.4rem;
+  cursor: pointer;
+  color: #9a9287;
+}
+
+.detail-edit-modal__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+  width: 100%;
+  padding: 2rem 2.4rem;
+}
+
+.detail-edit-modal__button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.detail-edit-modal__button--edit {
+  border-radius: 1.2rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: #f5f3ef;
+  color: #6b645a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-edit-modal__button--delete {
+  border-radius: 1.2rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(200, 90, 90, 0.1);
+  color: #c85a5a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-edit-modal__button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 0.4rem;
+}
+
+.detail-edit-modal__button-text--edit {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.detail-edit-modal__button-text--delete {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #c85a5a;
+}
+
+.detail-edit-modal__button-subtext {
+  font-size: 1.2rem;
+  color: #9a9287;
+}

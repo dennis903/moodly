@@ -1,6 +1,7 @@
 'use client';
 
-import {useAddTagModalToggleDispatch} from '../../store/addTagModal.store';
+import {useAddTagModalState, useAddTagModalToggleDispatch} from '../../store/addTagModal.store';
+import {useEmotionEditModalToggleDispatch} from '../../store/emotionEditModal.store';
 import {useEmotionRegisterModalDispatch, useEmotionRegisterModalState} from '../../store/emotionRegisterModal.store';
 import styles from './EmotionRegisterModal.module.css';
 import {Modal} from '@/components';
@@ -16,16 +17,19 @@ interface IEmotionRegisterModalPresenterModuleProps {
   text: string;
   onClickTimeButton: () => void;
   onChangeInput: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmitEmotionRegister: () => void;
 }
 
 const EmotionRegisterModalPresenterModule: FC<IEmotionRegisterModalPresenterModuleProps> = (props) => {
   const state$ = {
-    modal: useEmotionRegisterModalState()
+    modal: useEmotionRegisterModalState(),
+    addTagModal: useAddTagModalState()
   };
 
   const dispatch$ = {
     modal: useEmotionRegisterModalDispatch(),
-    addTagModal: useAddTagModalToggleDispatch()
+    addTagModal: useAddTagModalToggleDispatch(),
+    emotionEditModal: useEmotionEditModalToggleDispatch()
   };
 
   return (
@@ -41,20 +45,21 @@ const EmotionRegisterModalPresenterModule: FC<IEmotionRegisterModalPresenterModu
             </button>
           </div>
           <div className={cx('emotion-register-modal__info')}>
-            <Image src={`/images/${state$.modal.emotion}.png`} alt={state$.modal.emotion} width={120} height={120} />
-            <p className={cx('emotion-register-modal__date')}>{formatDateToKorean()}</p>
-            <p className={cx('emotion-register-modal__day')}>{formatDateToKoreanDay()}</p>
+            <button type="button" className={cx('emotion-register-modal__button')} onClick={() => dispatch$.emotionEditModal({isOpen: true})}>
+              <Image src={`/images/${state$.modal.emotion}.png`} alt={state$.modal.emotion} width={120} height={120} />
+            </button>
+            <p className={cx('emotion-register-modal__date')}>{formatDateToKorean(state$.modal.date)}</p>
+            <p className={cx('emotion-register-modal__day')}>{formatDateToKoreanDay(state$.modal.date)}</p>
           </div>
           <div className={cx('emotion-register-modal__text')}>
             <textarea className={cx('emotion-register-modal__textarea')} placeholder="오늘의 감정을 기록해보세요." value={props.text} onChange={props.onChangeInput} />
           </div>
-          <div className={cx('emotion-register-modal__button-tag')}>
-            <button type="button" className={cx('emotion-register-modal__tag')}>
-              #감정태그
-            </button>
-            <button type="button" className={cx('emotion-register-modal__tag')}>
-              #감정태그
-            </button>
+          <div className={cx('emotion-register-modal__taglist')}>
+            {state$.modal.tags.map((tag, index) => (
+              <div key={index} className={cx('emotion-register-modal__tag')}>
+                #{tag}
+              </div>
+            ))}
             <button type="button" className={cx('emotion-register-modal__tag-button')} onClick={() => dispatch$.addTagModal({isOpen: true})}>
               + 태그
             </button>
@@ -68,7 +73,7 @@ const EmotionRegisterModalPresenterModule: FC<IEmotionRegisterModalPresenterModu
                 <Clock4 />
               </button>
             </div>
-            <button type="button" className={cx('emotion-register-modal__submit-button')}>
+            <button type="button" className={cx('emotion-register-modal__submit-button')} onClick={props.onSubmitEmotionRegister}>
               <Check />
             </button>
           </div>

@@ -41,10 +41,11 @@
   resize: none;
 }
 
-.emotion-register-modal__button-tag {
+.emotion-register-modal__taglist {
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin: 2rem;
 }
 
 .emotion-register-modal__tag {
