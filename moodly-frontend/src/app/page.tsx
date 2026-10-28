@@ -8,9 +8,23 @@ const cx = classNames.bind(styles);
 const Home: FC = () => {
   return (
     <div className={cx('home')}>
+      <div className={cx('header')}>
+        <div className={cx('logo')}>
+          <Image src="/images/calm.png" alt="logo" width={21.6} height={21.6} />
+          <h2 className={cx('logo-title')}>Moodly</h2>
+        </div>
+        <div className={cx('header-buttons')}>
+          <button type="button" className={cx('header-button')}>
+            시작하기
+          </button>
+        </div>
+      </div>
       <div className={cx('main-header')}>
-        <h1 className={cx('title')}>오늘의 기분, 기록해볼까요?</h1>
-        <h2 className={cx('subtitle')}>귀여운 감정 캐릭터와 함께 매일 1분, 나를 이해하는 일기</h2>
+        <h2 className={cx('title')}>
+          오늘의 기분,
+          <br /> 기록해볼까요?
+        </h2>
+        <p className={cx('subtitle')}>귀여운 감정 캐릭터와 함께 매일 1분, 나를 이해하는 일기</p>
       </div>
       <div className={cx('main-buttons')}>
         <button type="button" className={cx('start-button')}>
@@ -20,7 +34,7 @@ const Home: FC = () => {
       </div>
       <Image src="/images/main-icons.png" alt="main-icons" width={500} height={500} />
       <div className={cx('description-container')}>
-        <h2 className={cx('main-description-title')}>이렇게 기록해요</h2>
+        <h2 className={cx('main-title')}>이렇게 기록해요</h2>
       </div>
       <div className={cx('description-container')}>
         <Image src="/images/description1.png" alt="description1" width={500} height={500} />
@@ -39,7 +53,7 @@ const Home: FC = () => {
       </div>
       <div className={cx('main-description')}>
         <h2 className={cx('main-description-title')}>매일 밤 1분, 오늘의 감정을 돌아보는 시간이 저를 많이 바꿔놨어요.</h2>
-        <p className={cx('main-description-subtext')}>- 3개월째 기록중인 사용자</p>
+        <p className={cx('main-description-text')}>- 3개월째 기록중인 사용자</p>
         <Image src="/images/description-icons.png" alt="description-icons" width={250} height={30} />
       </div>
       <div className={cx('main-start')}>
@@ -49,6 +63,7 @@ const Home: FC = () => {
           무료로 시작하기
         </button>
       </div>
+      <div className={cx('line')}></div>
       <div className={cx('main-footer')}>
         <h2 className={cx('footer-title')}>Moodly</h2>
         <p className={cx('footer-subtitle')}>이용약관 · 개인정보처리방침 · 문의하기</p>

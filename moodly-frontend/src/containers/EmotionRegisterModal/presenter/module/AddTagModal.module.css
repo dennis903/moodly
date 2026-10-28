@@ -74,6 +74,11 @@
   color: #fff;
 }
 
+.add-tag-modal__add-button--active {
+  background-color: #b8a0d8;
+  cursor: pointer;
+}
+
 .add-tag-modal__tag-list {
   display: flex;
   flex-direction: column;
@@ -102,4 +107,35 @@
   border-radius: 2rem;
   padding: 0.8rem 1.2rem;
   background-color: #fff;
+}
+
+.add-tag-modal__selected-tag-list {
+  display: flex;
+  gap: 1.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  list-style: none;
+}
+
+.add-tag-modal__selected-tag-item {
+  background-color: #ede4f8;
+  color: #7a5cb8;
+  border-radius: 1.8rem;
+  padding: 0.7rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.add-tag-modal__selected-tag {
+  font-size: 1.3rem;
+  color: #7a5cb8;
+}
+
+.add-tag-modal__selected-tag-delete-button {
+  border: none;
+  background: none;
+  color: #b8a0d8;
+  cursor: pointer;
 }

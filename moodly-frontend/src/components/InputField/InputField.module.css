@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  margin-top: 2rem;
   border: none;
+  width: 100%;
 }
 
 .input-field__legend {
@@ -63,4 +65,12 @@
 
 .input-field__message--success {
   color: #a8d8a8;
+}
+
+.input-field.mb-none__field {
+  margin-bottom: 0;
+}
+
+.input-field__input.pl-36__input {
+  padding-left: 3.6rem;
 }

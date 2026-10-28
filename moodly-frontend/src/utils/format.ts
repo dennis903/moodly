@@ -47,3 +47,20 @@ export const formatHoursAndMinutes = (date: Date) => {
 
   return `${hours}:${minutes}`;
 };
+
+export const formatAmPmToKorean = (date: Date) => {
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const amPm = hours >= 12 ? '오후' : '오전';
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+
+  return `${amPm} ${formattedHours}:${minutes}`;
+};
+
+export const formatDateToYYYYMMDD = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};

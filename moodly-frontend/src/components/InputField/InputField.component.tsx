@@ -7,7 +7,7 @@ import {type FC} from 'react';
 const cx = classNames.bind(styles);
 
 interface InputFieldComponentProps {
-  legend: string;
+  legend?: string;
   messages?: {
     message: string;
     isError: boolean;
@@ -20,44 +20,53 @@ interface InputFieldComponentProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  classNames?: string[];
 }
 
 const InputFieldComponent: FC<InputFieldComponentProps> = (props) => {
   return (
-    <fieldset className={cx('input-field')}>
-      <legend
-        className={cx('input-field__legend', {
-          'input-field__legend--focused': props.isFocused
-        })}
-      >
-        {props.legend}
-      </legend>
+    <fieldset className={cx('input-field', props.classNames)}>
+      {props.legend && (
+        <legend
+          className={cx('input-field__legend', {
+            'input-field__legend--focused': props.isFocused
+          })}
+        >
+          {props.legend}
+        </legend>
+      )}
       <input
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
-        className={cx('input-field__input', {
-          'input-field__input--focused': props.isFocused,
-          'input-field__input--error': props.isError,
-          'input-field__input--success': !props.isError && props.messages?.some((msg) => !msg.isError && msg.message !== '')
-        })}
+        className={cx(
+          'input-field__input',
+          {
+            'input-field__input--focused': props.isFocused,
+            'input-field__input--error': props.isError,
+            'input-field__input--success': !props.isError && props.messages?.some((msg) => !msg.isError && msg.message !== '')
+          },
+          props.classNames
+        )}
         onChange={props.onChange}
         onFocus={props.onFocus}
         onBlur={props.onBlur}
       />
-      <ul className={cx('input-field__messages')}>
-        {props.messages?.map((msg, index) => (
-          <li
-            key={index}
-            className={cx('input-field__message', {
-              'input-field__message--error': msg.isError,
-              'input-field__message--success': !msg.isError
-            })}
-          >
-            {msg.message}
-          </li>
-        ))}
-      </ul>
+      {props.messages && props.messages.length > 0 && (
+        <ul className={cx('input-field__messages')}>
+          {props.messages?.map((msg, index) => (
+            <li
+              key={index}
+              className={cx('input-field__message', {
+                'input-field__message--error': msg.isError,
+                'input-field__message--success': !msg.isError
+              })}
+            >
+              {msg.message}
+            </li>
+          ))}
+        </ul>
+      )}
     </fieldset>
   );
 };

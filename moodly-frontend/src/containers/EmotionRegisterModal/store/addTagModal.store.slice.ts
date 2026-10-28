@@ -43,11 +43,15 @@ export const createAddTagModalSlice: SlicePattern<TAddTagModalSlice> = (set, get
     );
   },
   acAddTag: (payload: {tag: string}) => {
+    const tagList = get().addTagModal$.tagList;
+
+    if (tagList.includes(payload.tag)) return;
+
     set(
       {
         addTagModal$: {
           ...get().addTagModal$,
-          tagList: [...get().addTagModal$.tagList, payload.tag]
+          tagList: [...tagList, payload.tag]
         }
       },
       false,
