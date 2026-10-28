@@ -12,6 +12,12 @@ import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
 import { QueryEntriesDto } from './dto/query-entries.dto';
 
+export interface PaginatedEntries {
+  items: Entry[];
+  nextCursor: string | null;
+  hasNext: boolean;
+}
+
 @Injectable()
 export class EntryService {
   constructor(
@@ -20,7 +26,11 @@ export class EntryService {
     private readonly tagService: TagService,
   ) {}
 
-  async findAll(userId: string, query: QueryEntriesDto): Promise<Entry[]> {
+  async findAll(
+    userId: string,
+    query: QueryEntriesDto,
+  ): Promise<PaginatedEntries> {
+    const { limit } = query;
     const qb = this.entryRepository
       .createQueryBuilder('entry')
       .leftJoinAndSelect('entry.tags', 'tag')
@@ -33,8 +43,20 @@ export class EntryService {
     if (query.to) {
       qb.andWhere('entry.date <= :to', { to: query.to });
     }
+    if (query.cursor) {
+      qb.andWhere('entry.date < :cursor', { cursor: query.cursor });
+    }
 
-    return qb.getMany();
+    // limit + 1개를 조회해 다음 페이지 존재 여부를 판단
+    const entries = await qb.take(limit + 1).getMany();
+    const hasNext = entries.length > limit;
+    const items = hasNext ? entries.slice(0, limit) : entries;
+
+    return {
+      items,
+      nextCursor: hasNext ? items[items.length - 1].date : null,
+      hasNext,
+    };
   }
 
   async findOne(id: string, userId: string): Promise<Entry> {
@@ -56,6 +78,24 @@ export class EntryService {
       where: { userId, date },
       relations: { tags: true },
     });
+  }
+
+  async findByYmd(
+    userId: string,
+    year: number,
+    month: number,
+    day: number,
+  ): Promise<Entry> {
+    if (month < 1 || month > 12 || day < 1 || day > 31) {
+      throw new NotFoundException('일기를 찾을 수 없습니다');
+    }
+
+    const date = `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const entry = await this.findByDate(userId, date);
+    if (!entry) {
+      throw new NotFoundException('일기를 찾을 수 없습니다');
+    }
+    return entry;
   }
 
   async create(userId: string, dto: CreateEntryDto): Promise<Entry> {

@@ -18,13 +18,19 @@ export class CreateEntryDto {
   @IsEnum(Emotion, { message: '유효한 감정 값이 아닙니다' })
   emotion: Emotion;
 
-  @ApiPropertyOptional({ example: '오늘 좋은 일이 있었다', description: '메모 (최대 500자)' })
+  @ApiPropertyOptional({
+    example: '오늘 좋은 일이 있었다',
+    description: '메모 (최대 500자)',
+  })
   @IsOptional()
   @IsString()
   @MaxLength(500, { message: '메모는 500자 이하여야 합니다' })
   memo?: string;
 
-  @ApiPropertyOptional({ example: ['회사', '운동'], description: '태그 이름 배열' })
+  @ApiPropertyOptional({
+    example: ['회사', '운동'],
+    description: '태그 이름 배열',
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

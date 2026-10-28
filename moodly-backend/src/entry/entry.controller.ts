@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   ParseUUIDPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -36,11 +37,31 @@ export class EntryController {
   ) {}
 
   @Get('entries')
-  @ApiOperation({ summary: '일기 목록 조회 (기간 필터 가능)' })
-  @ApiResponse({ status: 200, description: '일기 목록' })
+  @ApiOperation({
+    summary: '일기 목록 조회 (커서 페이징, 최신순, 기간 필터 가능)',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      '{ items, nextCursor, hasNext } — 다음 페이지는 cursor=nextCursor로 요청',
+  })
   @ApiResponse({ status: 401, description: '토큰 없음 또는 만료' })
   findAll(@CurrentUser() user: User, @Query() query: QueryEntriesDto) {
     return this.entryService.findAll(user.id, query);
+  }
+
+  @Get('entries/date/:year/:month/:day')
+  @ApiOperation({ summary: '일기 상세 조회 (년/월/일)' })
+  @ApiResponse({ status: 200, description: '일기 상세' })
+  @ApiResponse({ status: 401, description: '토큰 없음 또는 만료' })
+  @ApiResponse({ status: 404, description: '해당 날짜에 일기 없음' })
+  findByDate(
+    @CurrentUser() user: User,
+    @Param('year', ParseIntPipe) year: number,
+    @Param('month', ParseIntPipe) month: number,
+    @Param('day', ParseIntPipe) day: number,
+  ) {
+    return this.entryService.findByYmd(user.id, year, month, day);
   }
 
   @Get('entries/:id')
@@ -49,17 +70,17 @@ export class EntryController {
   @ApiResponse({ status: 401, description: '토큰 없음 또는 만료' })
   @ApiResponse({ status: 403, description: '다른 유저의 일기에 접근' })
   @ApiResponse({ status: 404, description: '일기를 찾을 수 없음' })
-  findOne(
-    @CurrentUser() user: User,
-    @Param('id', ParseUUIDPipe) id: string,
-  ) {
+  findOne(@CurrentUser() user: User, @Param('id', ParseUUIDPipe) id: string) {
     return this.entryService.findOne(id, user.id);
   }
 
   @Post('entries')
   @ApiOperation({ summary: '일기 생성' })
   @ApiResponse({ status: 201, description: '생성된 일기' })
-  @ApiResponse({ status: 400, description: '유효성 검증 실패 (날짜 형식, 감정 값 등)' })
+  @ApiResponse({
+    status: 400,
+    description: '유효성 검증 실패 (날짜 형식, 감정 값 등)',
+  })
   @ApiResponse({ status: 401, description: '토큰 없음 또는 만료' })
   @ApiResponse({ status: 409, description: '해당 날짜에 이미 일기가 존재' })
   create(@CurrentUser() user: User, @Body() dto: CreateEntryDto) {
